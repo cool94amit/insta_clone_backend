@@ -4,16 +4,19 @@ import connection from '../db/db';
 const router = Router();
 
 router.get('/', (req, res) => {
-  var q = 'SELECT * FROM `users`';
+  var q = 'SELECT * FROM `photos`';
   connection.query(q, function (error, results, fields) {
     if (error) throw error;
-    console.log(results[0]);
+    return res.send(results);
   });
-  return res.send(Object.values(req.context.models.messages));
 });
 
-router.get('/:messageId', (req, res) => {
-  return res.send(req.context.models.messages[req.params.messageId]);
+router.get('/:loggedInUserId', (req, res) => {
+  var q = 'SELECT * FROM `photos` where user_id='+ req.params.loggedInUserId;
+  connection.query(q, function (error, results, fields) {
+    if (error) throw error;
+    return res.send(results);
+  });
 });
 
 router.post('/', (req, res) => {

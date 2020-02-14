@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:userId', (req, res) => {
-  var q = 'SELECT * FROM `users` where id=' + req.params.userId;
+  var q = 'SELECT * FROM `users` where `id`=' + req.params.userId;
   connection.query(q, function (error, results, fields) {
     if (error) throw error;
     return res.send(results)
