@@ -1,9 +1,14 @@
 import uuidv4 from 'uuid/v4';
 import { Router } from 'express';
-
+import connection from '../db/db';
 const router = Router();
 
 router.get('/', (req, res) => {
+  var q = 'SELECT * FROM `users`';
+  connection.query(q, function (error, results, fields) {
+    if (error) throw error;
+    console.log(results[0]);
+  });
   return res.send(Object.values(req.context.models.messages));
 });
 
